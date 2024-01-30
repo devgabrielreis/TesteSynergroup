@@ -1,5 +1,5 @@
 <?php
-class ClienteDAO
+class ClientDAO
 {
     private PDO $conn;
 
@@ -8,9 +8,8 @@ class ClienteDAO
         $this->conn = $conn;
     }
 
-    function getTodosClientes() : array
+    function getAll() : array
     {
-        echo "Método ClienteDAO->getTodosClientes ainda não implementado";
         return [];
     }
 }

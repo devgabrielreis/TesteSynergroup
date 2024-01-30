@@ -1,5 +1,5 @@
 <?php
-class MoedaDAO
+class CurrencyDAO
 {
     private PDO $conn;
 
@@ -8,9 +8,8 @@ class MoedaDAO
         $this->conn = $conn;
     }
 
-    function getTodasMoedas() : array
+    function getAll() : array
     {
-        echo "Método MoedaDAO->getTodasMoedas ainda não implementado";
         return [];
     }
 }
