@@ -1,5 +1,5 @@
 <?php
-class Client
+class Client implements \JsonSerializable
 {
     private ?string $code;
     private ?string $clientName;
@@ -66,6 +66,13 @@ class Client
     public function getTotalSales() : ?float
     {
         return $this->totalSales;
+    }
+
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+
+        return $vars;
     }
 }
 ?>
