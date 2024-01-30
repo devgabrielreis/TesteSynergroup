@@ -1,4 +1,6 @@
 <?php
+require_once(__DIR__ . "/Currency.php");
+
 class CurrencyDAO
 {
     private PDO $conn;
@@ -8,9 +10,32 @@ class CurrencyDAO
         $this->conn = $conn;
     }
 
+    function buildCurrency(int $code, string $abbreviation, int $decimalPlaces) : Currency
+    {
+        $currency = new Currency();
+
+        $currency->setCode($code);
+        $currency->setAbbreviation($abbreviation);
+        $currency->setDecimalPlaces($decimalPlaces);
+
+        return $currency;
+    }
+
     function getAll() : array
     {
-        return [];
+        $stmt = $this->conn->prepare("SELECT MOEDA_CODIGO, MOEDA_SIGLA, MOEDA_QDEC FROM moedas");
+        $stmt->execute();
+
+        $data = $stmt->fetchAll();
+
+        $currencies = [];
+
+        foreach ($data as $currency)
+        {
+            $currencies[] = $this->buildCurrency($currency["MOEDA_CODIGO"], $currency["MOEDA_SIGLA"], $currency["MOEDA_QDEC"]);
+        }
+
+        return $currencies;
     }
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-class Currency
+class Currency implements \JsonSerializable
 {
     private ?int $code;
     private ?string $abbreviation;
@@ -33,6 +33,13 @@ class Currency
     public function getDecimalPlaces() : ?int
     {
         return $this->decimalPlaces;
+    }
+
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+
+        return $vars;
     }
 }
 ?>
