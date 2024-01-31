@@ -5,7 +5,7 @@ class Currency implements \JsonSerializable
     private ?string $abbreviation;
     private ?int $decimalPlaces;
 
-    public function setCode(int $code) : void
+    public function setCode(?int $code) : void
     {
         $this->code = $code;
     }
@@ -15,7 +15,7 @@ class Currency implements \JsonSerializable
         return $this->code;
     }
 
-    public function setAbbreviation(string $abbreviation) : void
+    public function setAbbreviation(?string $abbreviation) : void
     {
         $this->abbreviation = $abbreviation;
     }
@@ -25,7 +25,7 @@ class Currency implements \JsonSerializable
         return $this->abbreviation;
     }
 
-    public function setDecimalPlaces(int $decimalPlaces) : void
+    public function setDecimalPlaces(?int $decimalPlaces) : void
     {
         $this->decimalPlaces = $decimalPlaces;
     }
