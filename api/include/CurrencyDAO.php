@@ -37,5 +37,21 @@ class CurrencyDAO
 
         return $currencies;
     }
+
+    function getCurrency(int $code) : Currency|null
+    {
+        $stmt = $this->conn->prepare("SELECT MOEDA_SIGLA, MOEDA_QDEC FROM moedas WHERE MOEDA_CODIGO = :code");
+        $stmt->bindParam(":code", $code);
+        $stmt->execute();
+
+        if($stmt->rowCount() === 0)
+        {
+            return null;
+        }
+
+        $data = $stmt->fetch();
+
+        return $this->buildCurrency($code, $data["MOEDA_SIGLA"], $data["MOEDA_QDEC"]);
+    }
 }
 ?>

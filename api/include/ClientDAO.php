@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/Client.php");
+require_once(__DIR__ . "/CurrencyDAO.php");
 
 class ClientDAO
 {
@@ -72,6 +73,59 @@ class ClientDAO
             $data["CLI_DTULTVDA"],
             $data["CLI_VRVDA"]
         );
+    }
+
+    function validateNewClient(CurrencyDAO $currencyDAO, string $code, string $name, int $currencyCode) : void
+    {
+        if(strlen($code) === 0)
+        {
+            throw new Exception("O código do cliente esta vazio");
+        }
+
+        if(strlen($code) > 50)
+        {
+            throw new Exception("O código do cliente deve ter no máximo 50 caracteres");
+        }
+
+        if($this->getClient($code) !== null)
+        {
+            throw new Exception("Já existe um cliente com este código");
+        }
+
+        if(strlen($name) === 0)
+        {
+            throw new Exception("A razão social do cliente esta vazia");
+        }
+
+        if(strlen($name) > 150)
+        {
+            throw new Exception("A razão social do cliente deve ter no máximo 150 caracteres");
+        }
+
+        if($currencyDAO->getCurrency($currencyCode) === null)
+        {
+            throw new Exception("Essa moeda não existe");
+        }
+    }
+
+    function addClient(CurrencyDAO $currencyDAO, string $code, string $name, int $currencyCode) : void
+    {
+        $this->validateNewClient($currencyDAO, $code, $name, $currencyCode);
+
+        $creationDate = date("Y-m-d");
+
+        $stmt = $this->conn->prepare("INSERT INTO clientes (
+            CLI_CODIGO, CLI_RZSOC, CLI_MOEDA, CLI_DTCRE, CLI_VRVDA
+        ) VALUES (
+            :code, :name, :currencyCode, :creationDate, 0
+        )");
+
+        $stmt->bindParam(":code", $code);
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":currencyCode", $currencyCode);
+        $stmt->bindParam(":creationDate", $creationDate);
+
+        $stmt->execute();
     }
 
     function removeClient(Client $client)
