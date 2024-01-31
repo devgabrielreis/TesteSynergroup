@@ -1,4 +1,7 @@
 let clientsTableBody = document.getElementsByClassName("clients-table-body")[0];
+let newClientPopup = document.getElementsByClassName("new-client-popup")[0];
+let reloadBtn = document.getElementsByClassName("reload-btn")[0];
+let addClientBtn = document.getElementsByClassName("add-client-btn")[0];
 let clients = [];
 let currencies = [];
 
@@ -19,7 +22,7 @@ function onEntryClick()
 
 function clearTable()
 {
-    console.log("limmpar tabela nao implementado");
+    clientsTableBody.innerHTML = '';
 }
 
 function loadClientsTable()
@@ -124,11 +127,13 @@ async function getCurrencies()
     }
 }
 
-async function intializePage()
+async function loadPage()
 {
     await getClients();
     await getCurrencies();
     loadClientsTable();
 }
 
-intializePage();
+reloadBtn.onclick = () => loadPage();
+
+loadPage();
