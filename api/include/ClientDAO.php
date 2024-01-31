@@ -47,5 +47,45 @@ class ClientDAO
 
         return $clients;
     }
+
+    function getClient(string $clientCode) : Client|null
+    {
+        $stmt = $this->conn->prepare("SELECT
+            CLI_RZSOC, CLI_MOEDA, CLI_DTCRE, CLI_DTULTVDA, CLI_VRVDA
+            FROM clientes WHERE CLI_CODIGO = :code"
+        );
+        $stmt->bindParam(":code", $clientCode);
+        $stmt->execute();
+
+        if($stmt->rowCount() === 0)
+        {
+            return null;
+        }
+
+        $data = $stmt->fetch();
+
+        return $this->buildClient(
+            $clientCode,
+            $data["CLI_RZSOC"],
+            $data["CLI_MOEDA"],
+            $data["CLI_DTCRE"],
+            $data["CLI_DTULTVDA"],
+            $data["CLI_VRVDA"]
+        );
+    }
+
+    function removeClient(Client $client)
+    {
+        $clientCode = $client->getCode();
+
+        if($clientCode === null)
+        {
+            throw new Exception("Cliente com razão social nula passado como parâmetro para ClientDAO->removeClient");
+        }
+
+        $stmt = $this->conn->prepare("DELETE FROM clientes WHERE CLI_RZSOC = :code");
+        $stmt->bindParam(":code", $clientCode);
+        $stmt->execute();
+    }
 }
 ?>
