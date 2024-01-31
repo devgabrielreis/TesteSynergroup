@@ -7,7 +7,7 @@ function validateDelete(array $_DELETE) : void
 {
     if(!isset($_DELETE["code"]))
     {
-        throw new Exception("O valor \"code\" não está definido");
+        throw new Exception("A razão social não está definida");
     }
 }
 
