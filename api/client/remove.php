@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../include/db.php");
 require_once(__DIR__ . "/../include/ClientDAO.php");
 require_once(__DIR__ . "/../include/response.php");
 
-function validateDelete(array $_DELETE) : void
+function validateData(array $_DELETE) : void
 {
     if(!isset($_DELETE["code"]))
     {
@@ -24,7 +24,7 @@ function main() : void
 
     try
     {
-        validateDelete($_DELETE);
+        validateData($_DELETE);
         $clientCode = $_DELETE["code"];
     }
     catch (\Throwable $th)
