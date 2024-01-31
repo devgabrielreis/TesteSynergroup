@@ -10,7 +10,7 @@ class CurrencyDAO
         $this->conn = $conn;
     }
 
-    function buildCurrency(int $code, string $abbreviation, int $decimalPlaces) : Currency
+    function buildCurrency(?int $code, ?string $abbreviation, ?int $decimalPlaces) : Currency
     {
         $currency = new Currency();
 
