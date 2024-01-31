@@ -14,3 +14,20 @@ th{
 td{
     text-align: center;
 }
+
+.client-name-cell{
+    text-align: left;
+}
+
+.total-sales-cell{
+    text-align: right;
+}
+
+.clients-table-entry{
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.clients-table-entry:hover{
+    background-color: aquamarine;
+}

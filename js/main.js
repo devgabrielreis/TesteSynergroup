@@ -12,27 +12,43 @@ function formatDate(dateStr) {
     return `${day}/${month}/${year}`;
 }
 
+function onEntryClick()
+{
+    console.log(this.getElementsByClassName("client-name-cell")[0].textContent)
+}
+
+function clearTable()
+{
+    console.log("limmpar tabela nao implementado");
+}
+
 function loadClientsTable()
 {
+    clearTable();
+
     for(let client of clients)
     {
         let row = document.createElement("tr");
-        row.classList.add("clients-table-entry")
+        row.classList.add("clients-table-entry");
 
         let codeCell = document.createElement("td");
         codeCell.textContent = client.code;
+        codeCell.classList.add("code-cell");
         row.appendChild(codeCell);
 
         let clientNameCell = document.createElement("td");
         clientNameCell.textContent = client.clientName;
+        clientNameCell.classList.add("client-name-cell");
         row.appendChild(clientNameCell);
 
         let currencyCodeCell = document.createElement("td");
         currencyCodeCell.textContent = currencies.find((currency) => currency.code === client.currencyCode).abbreviation;
+        currencyCodeCell.classList.add("currency-code-cell");
         row.appendChild(currencyCodeCell);
 
         let creationDateCell = document.createElement("td");
         creationDateCell.textContent = formatDate(client.creationDate);
+        creationDateCell.classList.add("creation-date-cell");
         row.appendChild(creationDateCell);
 
         let lastSaleDateCell = document.createElement("td");
@@ -44,15 +60,18 @@ function loadClientsTable()
         {
             lastSaleDateCell.textContent = formatDate(client.lastSaleDate);
         }
+        lastSaleDateCell.classList.add("last-sale-date-cell");
         row.appendChild(lastSaleDateCell);
 
         let totalSalesCell = document.createElement("td");
         totalSalesCell.textContent = client.totalSales.toFixed(currencies.find((currency) => currency.code === client.currencyCode).decimalPlaces);
+        totalSalesCell.classList.add("total-sales-cell");
         row.appendChild(totalSalesCell);
+
+        row.onclick = onEntryClick;
 
         clientsTableBody.appendChild(row);
     }
-
 }
 
 async function getClients()
