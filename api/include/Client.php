@@ -8,7 +8,7 @@ class Client implements \JsonSerializable
     private ?string $lastSaleDate;
     private ?float $totalSales;
 
-    public function setCode(string $code) : void
+    public function setCode(?string $code) : void
     {
         $this->code = $code;
     }
@@ -18,7 +18,7 @@ class Client implements \JsonSerializable
         return $this->code;
     }
 
-    public function setClientName(string $clientName) : void
+    public function setClientName(?string $clientName) : void
     {
         $this->clientName = $clientName;
     }
@@ -28,7 +28,7 @@ class Client implements \JsonSerializable
         return $this->clientName;
     }
 
-    public function setCurrencyCode(int $currencyCode) : void
+    public function setCurrencyCode(?int $currencyCode) : void
     {
         $this->currencyCode = $currencyCode;
     }
@@ -38,7 +38,7 @@ class Client implements \JsonSerializable
         return $this->currencyCode;
     }
 
-    public function setCreationDate(int $creationDate) : void
+    public function setCreationDate(?string $creationDate) : void
     {
         $this->creationDate = $creationDate;
     }
@@ -48,7 +48,7 @@ class Client implements \JsonSerializable
         return $this->creationDate;
     }
 
-    public function setLastSaleDate(string $lastSaleDate) : void
+    public function setLastSaleDate(?string $lastSaleDate) : void
     {
         $this->lastSaleDate = $lastSaleDate;
     }
@@ -58,7 +58,7 @@ class Client implements \JsonSerializable
         return $this->lastSaleDate;
     }
 
-    public function setTotalSales(int $totalSales) : void
+    public function setTotalSales(?float $totalSales) : void
     {
         $this->totalSales = $totalSales;
     }
