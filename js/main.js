@@ -12,6 +12,8 @@ addClientBtn.onclick = function ()
 
     let currencySelector = document.getElementsByClassName("new-client-currency-code")[0];
 
+    currencySelector.innerHTML = '';
+
     for(let currency of currencies)
     {
         let entry = document.createElement("option");
