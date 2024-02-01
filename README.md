@@ -3,7 +3,7 @@
 ![Alt text](/screenshots/website.png)
 
 ## Índice
-#### (Instalação e configuração)[#instalação-e-configuração]
+#### [Instalação e configuração](#instalação-e-configuração)
   - [Windows 10 (XAMPP)]("")
 #### Documentação da API
   - [GET /api/currency/get.php]()
