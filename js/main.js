@@ -28,12 +28,13 @@ newClientPopupCloseBtn.onclick = function ()
     newClientPopup.style.display = "none";
 }
 
-function formatDate(dateStr) {
-    let date = new Date(dateStr);
+function formatDate(dateStr)
+{
+    let date = dateStr.split("-");
 
-    let day = (date.getDate() + 1).toString().padStart(2, '0');
-    let month = (date.getMonth() + 1).toString().padStart(2, '0');
-    let year = date.getFullYear();
+    let day = date[2];
+    let month = date[1];
+    let year = date[0];
 
     return `${day}/${month}/${year}`;
 }
