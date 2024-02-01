@@ -1,9 +1,30 @@
 let clientsTableBody = document.getElementsByClassName("clients-table-body")[0];
 let newClientPopup = document.getElementsByClassName("new-client-popup")[0];
+let newClientPopupCloseBtn = document.getElementsByClassName("new-client-popup-close-btn")[0];
 let reloadBtn = document.getElementsByClassName("reload-btn")[0];
 let addClientBtn = document.getElementsByClassName("add-client-btn")[0];
 let clients = [];
 let currencies = [];
+
+addClientBtn.onclick = function ()
+{
+    newClientPopup.style.display = "block";
+
+    let currencySelector = document.getElementsByClassName("new-client-currency-code")[0];
+
+    for(let currency of currencies)
+    {
+        let entry = document.createElement("option");
+        entry.innerText = currency.abbreviation;
+        entry.value = currency.code;
+        currencySelector.appendChild(entry);
+    }
+}
+
+newClientPopupCloseBtn.onclick = function ()
+{
+    newClientPopup.style.display = "none";
+}
 
 function formatDate(dateStr) {
     let date = new Date(dateStr);
@@ -123,7 +144,7 @@ async function getCurrencies()
     }
     catch(error)
     {
-        console.error("Erro no fetch placeholder", error);
+        console.error("Erro no fetch", error);
     }
 }
 
@@ -135,5 +156,49 @@ async function loadPage()
 }
 
 reloadBtn.onclick = () => loadPage();
+
+async function submitNewClient()
+{
+    let clientCode = document.getElementsByClassName("new-client-code")[0].value;
+    let clientName = document.getElementsByClassName("new-client-name")[0].value;
+    let clientCurrencyCode = document.getElementsByClassName("new-client-currency-code")[0].value;
+    
+    const url = "/api/client/add.php";
+
+    const requestBody = {
+        code: clientCode,
+        clientName: clientName,
+        currencyCode: clientCurrencyCode
+    }
+
+    try
+    {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if(response.status === 200)
+        {
+            loadPage();
+            alert("Cliente adicionado com sucesso");
+            newClientPopup.style.display = "none";
+        }
+        else
+        {
+            const jsonResponse = await response.json();
+            let apiResponse = jsonResponse;
+            alert(apiResponse.error);
+        }
+    }
+    catch(error)
+    {
+        alert("Erro no fetch");
+        console.log("Erro no fetch", error);
+    }
+}
 
 loadPage();

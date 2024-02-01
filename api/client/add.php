@@ -37,9 +37,12 @@ function main() : void
 
     try
     {
-        $code = filter_input(INPUT_POST, "code");
-        $name = filter_input(INPUT_POST, "clientName");
-        $currencyCode = filter_input(INPUT_POST, "currencyCode", FILTER_VALIDATE_INT);
+        $inputJSON = file_get_contents('php://input');
+        $input = json_decode($inputJSON, TRUE);
+
+        $code = $input['code'];
+        $name = $input['clientName'];
+        $currencyCode = $input['currencyCode'];
     
         validateData($code, $name, $currencyCode);
 

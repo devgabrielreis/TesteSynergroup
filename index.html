@@ -14,7 +14,23 @@
 
         <main>
             <div class="new-client-popup">
-                popup para cliente novo
+                <p>Adicionar cliente</p>
+                <form class="add-client-form" onsubmit="submitNewClient();return false">
+                    <div>
+                        <label for="code">Código do cliente</label>
+                        <input type="text" name="code" class="new-client-code"/>
+                    </div>
+                    <div>
+                        <label for="clientName">Razão social do cliente</label>
+                        <input type="text" name="clientName" class="new-client-name"/>
+                    </div>
+                    <div>
+                        <label for="currencyCode">Moeda do cliente</label>
+                        <select name="currencyCode" class="new-client-currency-code"></select>
+                    </div>
+                    <input type="submit" class="submitNewClient" />
+                </form>
+                <button class="new-client-popup-close-btn">Fechar tela</button>
             </div>
 
             <div class="btns">
