@@ -3,16 +3,16 @@
 ![Alt text](/screenshots/website.png)
 
 ## Índice
-#### [Instalação e configuração](#instalação-e-configuração)
+#### Instalação e configuração
   - [Windows 10 (XAMPP)](#windows-10-(xampp))
-#### [Documentação da API](#documentação-da-api)
+#### Documentação da API
   - [GET /api/currency/get.php](#get-apicurrencygetphp)
   - [GET /api/client/get.php](#get-apiclientgetphp)
   - [POST /api/client/add.php](#post-apiclientaddphp)
   - [POST /api/client/update.php](#post-apiclientupdatephp)
   - [DELETE /api/client/remove.php](#delete-apiclientremovephp)
 
-## Intalação e configuração
+## Instalação e configuração
 
 ### Windows 10 (XAMPP)
 - Baixe e instale o XAMPP
@@ -30,7 +30,7 @@
 - Execute os comandos
 - Volte na para a guia "SQL" e agora copie e cole o conteúdo de [fill_currencies.sql](sql/fill_currencies.sql)
 - Execute os comandos
-- Volte para a guia "SQL" e cópie e cole o conteúdo do arquivo [set_user.sql](sql/set_user.sql)
+- Volte para a guia "SQL" e copie e cole o conteúdo do arquivo [set_user.sql](sql/set_user.sql)
 - Antes de executar o comando, substitua o <USER> pelo nome de usuário do sistema e <PASSWORD> pela senha do sistema, memorize esses valores
 - Execute o comando
 - Agora, [crie algumas variáveis de sistema](https://www.alura.com.br/artigos/configurar-variaveis-ambiente-windows-linux-macos) que serão utilizadas pelo sistema
@@ -44,7 +44,7 @@
 
 ## Documentação da API
 ### GET /api/currency/get.php
-Retorna uma lista com todas as moedas salvas no banco de dados
+Retorna uma lista com todas as moedas armazenadas no banco de dados
 
 #### Parâmetros
 Nenhum
@@ -59,7 +59,7 @@ Retorna um JSON com a mensagem de erro:
 - error: (string) a mensagem de erro
 
 ### GET /api/client/get.php
-Retorna uma lista com todas as moedas salvas no banco de dados
+Retorna uma lista com todas os clientes armazenados no banco de dados
 
 #### Parâmetros
 Nenhum
@@ -85,7 +85,7 @@ Adiciona um cliente no banco de dados
 Os parâmetros devem ser enviados num corpo de mensagem "application/json"
 - code: (string) o código do cliente
 - clientName: (string) a razão social
-- currecurrencyCode: (int) o código da moeda do cliente
+- currencyCode: (int) o código da moeda do cliente
 #### Resposta
 ##### Sucesso (Código de resposta 200)
 Nenhum corpo de resposta
