@@ -18,19 +18,48 @@
                 <form class="add-client-form" onsubmit="submitNewClient();return false">
                     <div>
                         <label for="code">Código do cliente</label>
-                        <input type="text" name="code" class="new-client-code"/>
+                        <input type="text" name="code" class="new-client-code" required/>
                     </div>
                     <div>
                         <label for="clientName">Razão social do cliente</label>
-                        <input type="text" name="clientName" class="new-client-name"/>
+                        <input type="text" name="clientName" class="new-client-name" required/>
                     </div>
                     <div>
                         <label for="currencyCode">Moeda do cliente</label>
-                        <select name="currencyCode" class="new-client-currency-code"></select>
+                        <select name="currencyCode" class="new-client-currency-code" required></select>
                     </div>
                     <input type="submit" class="submitNewClient" value="Adicionar cliente" />
                 </form>
                 <button class="new-client-popup-close-btn">Fechar tela</button>
+            </div>
+
+            <div class="edit-client-popup">
+                <p>Editar <strong class="client-name-edit-popup"></strong></p>
+                <form class="edit-client-form" onsubmit="submitEditClient();return false">
+                    <input type="hidden" name="oldCode" class="edit-client-old-code" value=""/>
+                    <div>
+                        <label for="code">Código do cliente</label>
+                        <input type="text" name="code" class="edit-client-code" value=""/>
+                    </div>
+                    <div>
+                        <label for="clientName">Razão social do cliente</label>
+                        <input type="text" name="clientName" class="edit-client-name" value=""/>
+                    </div>
+                    <div>
+                        <label for="currencyCode">Moeda do cliente</label>
+                        <select name="currencyCode" class="edit-client-currency-code" value=""></select>
+                    </div>
+                    <div>
+                        <label for="lastSaleDate">Data da última venda do cliente</label>
+                        <input type="date" name="lastSaleDate" class="edit-client-last-sale-date" value=""/>
+                    </div>
+                    <div>
+                        <label for="totalSales">Total de vendas do cliente</label>
+                        <input type="number" step="0.0001" name="totalSales" class="edit-client-total-sales" value=""/>
+                    </div>
+                    <input type="submit" class="submitEditClient" value="Editar cliente" />
+                </form>
+                <button class="edit-client-popup-close-btn">Fechar tela</button>
             </div>
 
             <div class="client-view">

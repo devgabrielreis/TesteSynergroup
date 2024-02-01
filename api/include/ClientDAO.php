@@ -143,7 +143,7 @@ class ClientDAO
         {
             if(strlen($newCode) === 0)
             {
-                throw new Exception("O código do cliente esta vazio");
+                $newCode = null;
             }
             if(strlen($newCode) > 50)
             {
@@ -159,7 +159,7 @@ class ClientDAO
         {
             if(strlen($newName) === 0)
             {
-                throw new Exception("A razão social do cliente esta vazia");
+                $newName = null;
             }
             if(strlen($newName) > 150)
             {
@@ -169,7 +169,11 @@ class ClientDAO
 
         if($newCurrencyCode !== null)
         {
-            if($currencyDAO->getCurrency($newCurrencyCode) === null)
+            if($newCurrencyCode === "")
+            {
+                $newCurrencyCode = null;
+            }
+            else if($currencyDAO->getCurrency($newCurrencyCode) === null)
             {
                 throw new Exception("Essa moeda não existe");
             }
@@ -177,7 +181,11 @@ class ClientDAO
 
         if($newLastSaleDate !== null)
         {
-            if(!checkStringDateFormat($newLastSaleDate, "Y-m-d"))
+            if($newLastSaleDate === "")
+            {
+                $newLastSaleDate = null;
+            }
+            else if(!checkStringDateFormat($newLastSaleDate, "Y-m-d"))
             {
                 throw new Exception("A nova data de última venda está no formato incorreto");
             }
@@ -185,7 +193,11 @@ class ClientDAO
 
         if($newTotalSales !== null)
         {
-            if($newTotalSales < 0)
+            if($newTotalSales === "")
+            {
+                $newTotalSales = null;
+            }
+            else if($newTotalSales < 0)
             {
                 throw new Exception("O total de vendas deve ser um número positivo");
             }
@@ -198,7 +210,7 @@ class ClientDAO
 
             $currency = $currencyDAO->getCurrency($currencyCode);
 
-            if(checkFloatDecimalPlaces($newTotalSales) !== $currency->getDecimalPlaces())
+            if(checkFloatDecimalPlaces($newTotalSales) > $currency->getDecimalPlaces())
             {
                 throw new Exception("O valor total de vendas de um cliente com a moeda " . $currency->getAbbreviation() . " ser um número com no máximo " . strval($currency->getDecimalPlaces()) . " casas decimais");
             }

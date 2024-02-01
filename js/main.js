@@ -5,9 +5,93 @@ let clientViewPopup = document.getElementsByClassName("client-view")[0];
 let clientViewCloseBtn = document.getElementsByClassName("close-information-popup")[0];
 let reloadBtn = document.getElementsByClassName("reload-btn")[0];
 let addClientBtn = document.getElementsByClassName("add-client-btn")[0];
+let editClientBtn = document.getElementsByClassName("edit-client-btn")[0];
 let removeClientBtn = document.getElementsByClassName("delete-btn")[0];
+let editClientPopup = document.getElementsByClassName("edit-client-popup")[0];
+let closeEditClientPopupBtn = document.querySelector(".edit-client-popup-close-btn");
 let clients = [];
 let currencies = [];
+
+async function submitEditClient()
+{
+    let oldCode = document.querySelector(".edit-client-old-code").value;
+    let newCode = document.querySelector(".edit-client-code").value;
+    let clientName = document.querySelector(".edit-client-name").value;
+    let currencyCode = document.querySelector(".edit-client-currency-code").value;
+    let lastSaleDate = document.querySelector(".edit-client-last-sale-date").value;
+    let totalSales = document.querySelector(".edit-client-total-sales").value;
+
+    const url = "/api/client/update.php";
+
+    const requestBody = {
+        oldCode: oldCode,
+        newCode: newCode,
+        clientName: clientName,
+        currencyCode: currencyCode,
+        lastSaleDate: lastSaleDate,
+        totalSales: totalSales
+    }
+
+    try
+    {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        if(response.status === 200)
+        {
+            loadPage();
+            alert("Cliente atualizado com sucesso");
+            clientViewPopup.style.display = "none";
+            editClientPopup.style.display = "none";
+        }
+        else
+        {
+            const jsonResponse = await response.json();
+            let apiResponse = jsonResponse;
+            alert(apiResponse.error);
+        }
+    }
+    catch(error)
+    {
+        alert("Erro no fetch");
+        console.log("Erro no fetch", error);
+    }
+}
+
+closeEditClientPopupBtn.onclick = function ()
+{
+    editClientPopup.style.display = "none";
+}
+
+editClientBtn.onclick = function ()
+{
+    editClientPopup.style.display = "block";
+    document.querySelector(".client-name-edit-popup").innerHTML = document.querySelector(".client-name").innerHTML;
+
+    let currencySelector = document.getElementsByClassName("edit-client-currency-code")[0];
+
+    currencySelector.innerHTML = '';
+
+    for(let currency of currencies)
+    {
+        let entry = document.createElement("option");
+        entry.innerText = currency.abbreviation;
+        entry.value = currency.code;
+        currencySelector.appendChild(entry);
+    }
+
+    document.querySelector(".edit-client-old-code").value = document.querySelector(".client-code").innerHTML;
+    document.querySelector(".edit-client-code").value = document.querySelector(".client-code").innerHTML;
+    document.querySelector(".edit-client-name").value = document.querySelector(".client-name").innerHTML;
+    document.querySelector(".edit-client-currency-code").value = document.querySelector(".client-currency").innerHTML;
+    document.querySelector(".edit-client-last-sale-date").value = document.querySelector(".client-last-sale-date").innerHTML;
+    document.querySelector(".edit-client-total-sales").value = document.querySelector(".client-total-sales").innerHTML;
+}
 
 removeClientBtn.onclick = async function()
 {
@@ -20,8 +104,6 @@ removeClientBtn.onclick = async function()
         const requestBody = {
             code: clientCode,
         }
-
-        console.log(requestBody);
 
         try
         {

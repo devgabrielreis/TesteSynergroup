@@ -29,12 +29,19 @@ function main() : void
 
     try
     {
-        $oldCode = filter_input(INPUT_POST, "oldCode");
-        $newCode = filter_input(INPUT_POST, "newCode");
-        $newName = filter_input(INPUT_POST, "clientName");
-        $newCurrencyCode = filter_input(INPUT_POST, "currencyCode", FILTER_VALIDATE_INT);
-        $newLastSaleDate = filter_input(INPUT_POST, "lastSaleDate");
-        $newTotalSales = filter_input(INPUT_POST, "totalSales", FILTER_VALIDATE_FLOAT);
+        $inputJSON = file_get_contents('php://input');
+        $input = json_decode($inputJSON, TRUE);
+
+        $oldCode = $input["oldCode"];
+        $newCode = $input["newCode"];
+        $newCode = ($newCode === $oldCode) ? null : $newCode;
+        $newName = $input["clientName"];
+        $newCurrencyCode = $input["currencyCode"];
+        $newCurrencyCode = ($newCurrencyCode === "") ? null : strval($newCurrencyCode);
+        $newLastSaleDate = $input["lastSaleDate"];
+        $newLastSaleDate = ($newLastSaleDate === "") ? null : $newLastSaleDate;
+        $newTotalSales = $input["totalSales"];
+        $newTotalSales = ($newTotalSales === "") ? null : strval($newTotalSales);
 
         validateData($oldCode);
 
