@@ -4,13 +4,13 @@
 
 ## Índice
 #### [Instalação e configuração](#instalação-e-configuração)
-  - [Windows 10 (XAMPP)]("")
-#### Documentação da API
-  - [GET /api/currency/get.php]()
-  - [GET /api/client/get.php]()
-  - [POST /api/client/add.php]()
-  - [POST /api/client/update.php]()
-  - [DELETE /api/client/remove.php]()
+  - [Windows 10 (XAMPP)](#windows-10-(xampp))
+#### [Documentação da API](#documentação-da-api)
+  - [GET /api/currency/get.php](#get-apicurrencygetphp)
+  - [GET /api/client/get.php](#get-apiclientgetphp)
+  - [POST /api/client/add.php](#post-apiclientaddphp)
+  - [POST /api/client/update.php](#post-apiclientupdatephp)
+  - [DELETE /api/client/remove.php](#delete-apiclientremovephp)
 
 ## Intalação e configuração
 
