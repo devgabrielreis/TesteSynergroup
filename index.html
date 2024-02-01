@@ -28,9 +28,25 @@
                         <label for="currencyCode">Moeda do cliente</label>
                         <select name="currencyCode" class="new-client-currency-code"></select>
                     </div>
-                    <input type="submit" class="submitNewClient" />
+                    <input type="submit" class="submitNewClient" value="Adicionar cliente" />
                 </form>
                 <button class="new-client-popup-close-btn">Fechar tela</button>
+            </div>
+
+            <div class="client-view">
+                <h3 class="client-name"></h3>
+                <div class="client-information">
+                    <div><strong>Código: </strong><p class="client-code"></p></div>
+                    <div><strong>Moeda: </strong><p class="client-currency"></p></div>
+                    <div><strong>Data de criação: </strong><p class="client-creation-date"></p></div>
+                    <div><strong>Data da última venda: </strong><p class="client-last-sale-date"></p></div>
+                    <div><strong>Total de vendas: </strong><p class="client-total-sales"></p></div>
+                </div>
+                <div class="btns">
+                    <button class="delete-btn">Apagar cliente</button>
+                    <button class="edit-client-btn">Editar cliente</button>
+                    <button class="close-information-popup">Fechar tela</button>
+                </div>
             </div>
 
             <div class="btns">

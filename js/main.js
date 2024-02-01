@@ -1,6 +1,8 @@
 let clientsTableBody = document.getElementsByClassName("clients-table-body")[0];
 let newClientPopup = document.getElementsByClassName("new-client-popup")[0];
 let newClientPopupCloseBtn = document.getElementsByClassName("new-client-popup-close-btn")[0];
+let clientViewPopup = document.getElementsByClassName("client-view")[0];
+let clientViewCloseBtn = document.getElementsByClassName("close-information-popup")[0];
 let reloadBtn = document.getElementsByClassName("reload-btn")[0];
 let addClientBtn = document.getElementsByClassName("add-client-btn")[0];
 let clients = [];
@@ -23,6 +25,11 @@ addClientBtn.onclick = function ()
     }
 }
 
+clientViewCloseBtn.onclick = function ()
+{
+    clientViewPopup.style.display = "none";
+}
+
 newClientPopupCloseBtn.onclick = function ()
 {
     newClientPopup.style.display = "none";
@@ -41,7 +48,14 @@ function formatDate(dateStr)
 
 function onEntryClick()
 {
-    console.log(this.getElementsByClassName("client-name-cell")[0].textContent)
+    clientViewPopup.style.display = "block";
+
+    document.getElementsByClassName("client-name")[0].innerHTML = this.querySelector(".client-name-cell").innerHTML;
+    document.getElementsByClassName("client-code")[0].innerHTML = this.querySelector(".code-cell").innerHTML;
+    document.getElementsByClassName("client-currency")[0].innerHTML = this.querySelector(".currency-code-cell").innerHTML;
+    document.getElementsByClassName("client-creation-date")[0].innerHTML = this.querySelector(".creation-date-cell").innerHTML;
+    document.getElementsByClassName("client-last-sale-date")[0].innerHTML = this.querySelector(".last-sale-date-cell").innerHTML;
+    document.getElementsByClassName("client-total-sales")[0].innerHTML = this.querySelector(".total-sales-cell").innerHTML;
 }
 
 function clearTable()
