@@ -5,8 +5,54 @@ let clientViewPopup = document.getElementsByClassName("client-view")[0];
 let clientViewCloseBtn = document.getElementsByClassName("close-information-popup")[0];
 let reloadBtn = document.getElementsByClassName("reload-btn")[0];
 let addClientBtn = document.getElementsByClassName("add-client-btn")[0];
+let removeClientBtn = document.getElementsByClassName("delete-btn")[0];
 let clients = [];
 let currencies = [];
+
+removeClientBtn.onclick = async function()
+{
+    let clientName = document.querySelector(".client-name").innerHTML;
+    let clientCode = document.querySelector(".client-code").innerHTML;
+    if(confirm("Você tem certeza que deseja remover o cliente \"" + clientName + "\" do banco de dados?"))
+    {
+        const url = "/api/client/remove.php";
+
+        const requestBody = {
+            code: clientCode,
+        }
+
+        console.log(requestBody);
+
+        try
+        {
+            const response = await fetch(url, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestBody)
+            });
+
+            if(response.status === 200)
+            {
+                alert("Cliente removido com sucesso");
+                loadPage();
+                clientViewPopup.style.display = "none";
+            }
+            else
+            {
+                const jsonResponse = await response.json();
+                let apiResponse = jsonResponse;
+                alert(apiResponse.error);
+            }
+        }
+        catch(error)
+        {
+            alert("Erro no fetch");
+            console.log("Erro no fetch", error);
+        }
+    }
+}
 
 addClientBtn.onclick = function ()
 {

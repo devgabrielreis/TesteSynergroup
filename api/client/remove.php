@@ -20,7 +20,9 @@ function main() : void
         exit();
     }
 
-    parse_str(file_get_contents("php://input"), $_DELETE);
+    $inputJSON = file_get_contents('php://input');
+    $_DELETE = json_decode($inputJSON, TRUE);
+    print_r($_DELETE);
 
     try
     {

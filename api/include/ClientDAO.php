@@ -240,7 +240,7 @@ class ClientDAO
             throw new Exception("Cliente com razão social nula passado como parâmetro para ClientDAO->removeClient");
         }
 
-        $stmt = $this->conn->prepare("DELETE FROM clientes WHERE CLI_RZSOC = :code");
+        $stmt = $this->conn->prepare("DELETE FROM clientes WHERE CLI_CODIGO = :code");
         $stmt->bindParam(":code", $clientCode);
         $stmt->execute();
     }
