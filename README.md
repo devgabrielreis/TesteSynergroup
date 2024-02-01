@@ -4,7 +4,7 @@
 
 ## Índice
 #### Instalação e configuração
-  - [Windows 10 (XAMPP)](#windows-10-(xampp))
+  - [Windows 10 via XAMPP](#windows-10-via-xampp)
 #### Documentação da API
   - [GET /api/currency/get.php](#get-apicurrencygetphp)
   - [GET /api/client/get.php](#get-apiclientgetphp)
@@ -14,7 +14,7 @@
 
 ## Instalação e configuração
 
-### Windows 10 (XAMPP)
+### Windows 10 via XAMPP
 - Baixe e instale o XAMPP
 - Depois da instalação, abra o XAMPP e clique em no botão "Config" que esta na mesma linha que o Apache, depois clique em "PHP (php.ini)
 - Procure pela linha "extension=pdo_mysql" no arquivo que abrir e, caso haja um ";" no começo da linha, o apague e salve o arquivo
