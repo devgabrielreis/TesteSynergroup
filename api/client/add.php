@@ -64,6 +64,6 @@ try
 }
 catch (\Throwable $th)
 {
-    setJsonResponse(500, null);
+    setJsonResponse(500, ["error" => "Erro interno, tente mais tarde"]);
 }
 ?>
