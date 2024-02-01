@@ -81,6 +81,11 @@
             <div class="btns">
                 <button class="reload-btn">Recarregar</button>
                 <button class="add-client-btn">Adicionar cliente</button>
+
+                <form class="search" onsubmit="filterClients();return false">
+                    <input type="text" class="search-bar" placeholder="Pesquisar clientes.." name="search">
+                    <button type="submit">Pesquisar</button>
+                </form>
             </div>
 
             <table class="clients-table">

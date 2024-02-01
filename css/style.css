@@ -24,6 +24,10 @@ th, td{
     padding: 0 15px;
 }
 
+.reload-btn, .add-client-btn, .search{
+    display: inline-block;
+}
+
 .client-name-cell, .code-cell{
     text-align: left;
 }

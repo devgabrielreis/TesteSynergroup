@@ -191,55 +191,60 @@ function clearTable()
     clientsTableBody.innerHTML = '';
 }
 
+function addClientToTable(client)
+{
+    let row = document.createElement("tr");
+    row.classList.add("clients-table-entry");
+
+    let codeCell = document.createElement("td");
+    codeCell.textContent = client.code;
+    codeCell.classList.add("code-cell");
+    row.appendChild(codeCell);
+
+    let clientNameCell = document.createElement("td");
+    clientNameCell.textContent = client.clientName;
+    clientNameCell.classList.add("client-name-cell");
+    row.appendChild(clientNameCell);
+
+    let currencyCodeCell = document.createElement("td");
+    currencyCodeCell.textContent = client.currencyAbbreviation;
+    currencyCodeCell.classList.add("currency-code-cell");
+    row.appendChild(currencyCodeCell);
+
+    let creationDateCell = document.createElement("td");
+    creationDateCell.textContent = formatDate(client.creationDate);
+    creationDateCell.classList.add("creation-date-cell");
+    row.appendChild(creationDateCell);
+
+    let lastSaleDateCell = document.createElement("td");
+    if(client.lastSaleDate === null)
+    {
+        lastSaleDateCell.textContent = "-";
+    }
+    else
+    {
+        lastSaleDateCell.textContent = formatDate(client.lastSaleDate);
+    }
+    lastSaleDateCell.classList.add("last-sale-date-cell");
+    row.appendChild(lastSaleDateCell);
+
+    let totalSalesCell = document.createElement("td");
+    totalSalesCell.textContent = client.totalSales.toFixed(client.currencyDecimalPlaces);
+    totalSalesCell.classList.add("total-sales-cell");
+    row.appendChild(totalSalesCell);
+
+    row.onclick = onEntryClick;
+
+    clientsTableBody.appendChild(row);
+}
+
 function loadClientsTable()
 {
     clearTable();
 
     for(let client of clients)
     {
-        let row = document.createElement("tr");
-        row.classList.add("clients-table-entry");
-
-        let codeCell = document.createElement("td");
-        codeCell.textContent = client.code;
-        codeCell.classList.add("code-cell");
-        row.appendChild(codeCell);
-
-        let clientNameCell = document.createElement("td");
-        clientNameCell.textContent = client.clientName;
-        clientNameCell.classList.add("client-name-cell");
-        row.appendChild(clientNameCell);
-
-        let currencyCodeCell = document.createElement("td");
-        currencyCodeCell.textContent = client.currencyAbbreviation;
-        currencyCodeCell.classList.add("currency-code-cell");
-        row.appendChild(currencyCodeCell);
-
-        let creationDateCell = document.createElement("td");
-        creationDateCell.textContent = formatDate(client.creationDate);
-        creationDateCell.classList.add("creation-date-cell");
-        row.appendChild(creationDateCell);
-
-        let lastSaleDateCell = document.createElement("td");
-        if(client.lastSaleDate === null)
-        {
-            lastSaleDateCell.textContent = "-";
-        }
-        else
-        {
-            lastSaleDateCell.textContent = formatDate(client.lastSaleDate);
-        }
-        lastSaleDateCell.classList.add("last-sale-date-cell");
-        row.appendChild(lastSaleDateCell);
-
-        let totalSalesCell = document.createElement("td");
-        totalSalesCell.textContent = client.totalSales.toFixed(client.currencyDecimalPlaces);
-        totalSalesCell.classList.add("total-sales-cell");
-        row.appendChild(totalSalesCell);
-
-        row.onclick = onEntryClick;
-
-        clientsTableBody.appendChild(row);
+        addClientToTable(client);
     }
 }
 
@@ -343,6 +348,23 @@ async function submitNewClient()
     {
         alert("Erro no fetch");
         console.log("Erro no fetch", error);
+    }
+}
+
+function filterClients()
+{
+    let search = document.querySelector(".search-bar").value;
+
+    search = search.toLowerCase()
+    
+    clearTable();
+
+    for(let client of clients)
+    {
+        if(client.code.toLowerCase().includes(search) || client.clientName.toLowerCase().includes(search))
+        {
+            addClientToTable(client);
+        }
     }
 }
 
