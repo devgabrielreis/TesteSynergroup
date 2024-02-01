@@ -1,13 +1,13 @@
-let clientsTableBody = document.getElementsByClassName("clients-table-body")[0];
-let newClientPopup = document.getElementsByClassName("new-client-popup")[0];
-let newClientPopupCloseBtn = document.getElementsByClassName("new-client-popup-close-btn")[0];
-let clientViewPopup = document.getElementsByClassName("client-view")[0];
-let clientViewCloseBtn = document.getElementsByClassName("close-information-popup")[0];
-let reloadBtn = document.getElementsByClassName("reload-btn")[0];
-let addClientBtn = document.getElementsByClassName("add-client-btn")[0];
-let editClientBtn = document.getElementsByClassName("edit-client-btn")[0];
-let removeClientBtn = document.getElementsByClassName("delete-btn")[0];
-let editClientPopup = document.getElementsByClassName("edit-client-popup")[0];
+let clientsTableBody = document.querySelector(".clients-table-body");
+let newClientPopup = document.querySelector(".new-client-popup");
+let newClientPopupCloseBtn = document.querySelector(".new-client-popup-close-btn");
+let clientViewPopup = document.querySelector(".client-view");
+let clientViewCloseBtn = document.querySelector(".close-information-popup");
+let reloadBtn = document.querySelector(".reload-btn");
+let addClientBtn = document.querySelector(".add-client-btn");
+let editClientBtn = document.querySelector(".edit-client-btn");
+let removeClientBtn = document.querySelector(".delete-btn");
+let editClientPopup = document.querySelector(".edit-client-popup");
 let closeEditClientPopupBtn = document.querySelector(".edit-client-popup-close-btn");
 let clients = [];
 let currencies = [];
@@ -73,7 +73,7 @@ editClientBtn.onclick = function ()
     editClientPopup.style.display = "block";
     document.querySelector(".client-name-edit-popup").innerHTML = document.querySelector(".client-name").innerHTML;
 
-    let currencySelector = document.getElementsByClassName("edit-client-currency-code")[0];
+    let currencySelector = document.querySelector(".edit-client-currency-code");
 
     currencySelector.innerHTML = '';
 
@@ -140,7 +140,7 @@ addClientBtn.onclick = function ()
 {
     newClientPopup.style.display = "block";
 
-    let currencySelector = document.getElementsByClassName("new-client-currency-code")[0];
+    let currencySelector = document.querySelector(".new-client-currency-code");
 
     currencySelector.innerHTML = '';
 
@@ -178,12 +178,12 @@ function onEntryClick()
 {
     clientViewPopup.style.display = "block";
 
-    document.getElementsByClassName("client-name")[0].innerHTML = this.querySelector(".client-name-cell").innerHTML;
-    document.getElementsByClassName("client-code")[0].innerHTML = this.querySelector(".code-cell").innerHTML;
-    document.getElementsByClassName("client-currency")[0].innerHTML = this.querySelector(".currency-code-cell").innerHTML;
-    document.getElementsByClassName("client-creation-date")[0].innerHTML = this.querySelector(".creation-date-cell").innerHTML;
-    document.getElementsByClassName("client-last-sale-date")[0].innerHTML = this.querySelector(".last-sale-date-cell").innerHTML;
-    document.getElementsByClassName("client-total-sales")[0].innerHTML = this.querySelector(".total-sales-cell").innerHTML;
+    document.querySelector(".client-name").innerHTML = this.querySelector(".client-name-cell").innerHTML;
+    document.querySelector(".client-code").innerHTML = this.querySelector(".code-cell").innerHTML;
+    document.querySelector(".client-currency").innerHTML = this.querySelector(".currency-code-cell").innerHTML;
+    document.querySelector(".client-creation-date").innerHTML = this.querySelector(".creation-date-cell").innerHTML;
+    document.querySelector(".client-last-sale-date").innerHTML = this.querySelector(".last-sale-date-cell").innerHTML;
+    document.querySelector(".client-total-sales").innerHTML = this.querySelector(".total-sales-cell").innerHTML;
 }
 
 function clearTable()
@@ -211,7 +211,7 @@ function loadClientsTable()
         row.appendChild(clientNameCell);
 
         let currencyCodeCell = document.createElement("td");
-        currencyCodeCell.textContent = currencies.find((currency) => currency.code === client.currencyCode).abbreviation;
+        currencyCodeCell.textContent = client.currencyAbbreviation;
         currencyCodeCell.classList.add("currency-code-cell");
         row.appendChild(currencyCodeCell);
 
@@ -233,7 +233,7 @@ function loadClientsTable()
         row.appendChild(lastSaleDateCell);
 
         let totalSalesCell = document.createElement("td");
-        totalSalesCell.textContent = client.totalSales.toFixed(currencies.find((currency) => currency.code === client.currencyCode).decimalPlaces);
+        totalSalesCell.textContent = client.totalSales.toFixed(client.currencyDecimalPlaces);
         totalSalesCell.classList.add("total-sales-cell");
         row.appendChild(totalSalesCell);
 
@@ -304,9 +304,9 @@ reloadBtn.onclick = () => loadPage();
 
 async function submitNewClient()
 {
-    let clientCode = document.getElementsByClassName("new-client-code")[0].value;
-    let clientName = document.getElementsByClassName("new-client-name")[0].value;
-    let clientCurrencyCode = document.getElementsByClassName("new-client-currency-code")[0].value;
+    let clientCode = document.querySelector(".new-client-code").value;
+    let clientName = document.querySelector(".new-client-name").value;
+    let clientCurrencyCode = document.querySelector(".new-client-currency-code").value;
     
     const url = "/api/client/add.php";
 

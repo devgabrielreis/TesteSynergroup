@@ -13,7 +13,7 @@ class ClientDAO
         $this->conn = $conn;
     }
 
-    function buildClient(?string $code, ?string $clientName, ?int $currencyCode, ?string $creationDate, ?string $lastSaleDate, ?float $totalSales) : Client
+    function buildClient(?string $code, ?string $clientName, ?int $currencyCode, ?string $creationDate, ?string $lastSaleDate, ?float $totalSales, ?string $currencyAbreviation = null, ?int $currencyDecimalPlaces = null) : Client
     {
         $client = new Client();
 
@@ -23,13 +23,17 @@ class ClientDAO
         $client->setCreationDate($creationDate);
         $client->setLastSaleDate($lastSaleDate);
         $client->setTotalSales($totalSales);
+        $client->setCurrencyAbbreviation($currencyAbreviation);
+        $client->setCurrencyDecimalPlaces($currencyDecimalPlaces);
 
         return $client;
     }
 
     function getAll() : array
     {
-        $stmt = $this->conn->prepare("SELECT CLI_CODIGO, CLI_RZSOC, CLI_MOEDA, CLI_DTCRE, CLI_DTULTVDA, CLI_VRVDA FROM clientes");
+        $stmt = $this->conn->prepare("SELECT
+            c.CLI_CODIGO, c.CLI_RZSOC, c.CLI_MOEDA, c.CLI_DTCRE, c.CLI_DTULTVDA, c.CLI_VRVDA, m.MOEDA_SIGLA, m.MOEDA_QDEC
+            FROM clientes c INNER JOIN moedas m ON c.CLI_MOEDA = m.MOEDA_CODIGO");
         $stmt->execute();
 
         $data = $stmt->fetchAll();
@@ -44,7 +48,9 @@ class ClientDAO
                 $client["CLI_MOEDA"],
                 $client["CLI_DTCRE"],
                 $client["CLI_DTULTVDA"],
-                $client["CLI_VRVDA"]
+                $client["CLI_VRVDA"],
+                $client["MOEDA_SIGLA"],
+                $client["MOEDA_QDEC"]
             );
         }
 
@@ -54,8 +60,9 @@ class ClientDAO
     function getClient(string $clientCode) : Client|null
     {
         $stmt = $this->conn->prepare("SELECT
-            CLI_RZSOC, CLI_MOEDA, CLI_DTCRE, CLI_DTULTVDA, CLI_VRVDA
-            FROM clientes WHERE CLI_CODIGO = :code"
+            c.CLI_RZSOC, c.CLI_MOEDA, c.CLI_DTCRE, c.CLI_DTULTVDA, c.CLI_VRVDA, m.MOEDA_SIGLA, m.MOEDA_QDEC
+            FROM clientes c INNER JOIN moedas m ON c.CLI_MOEDA = m.MOEDA_CODIGO
+            WHERE CLI_CODIGO = :code"
         );
         $stmt->bindParam(":code", $clientCode);
         $stmt->execute();
@@ -73,7 +80,9 @@ class ClientDAO
             $data["CLI_MOEDA"],
             $data["CLI_DTCRE"],
             $data["CLI_DTULTVDA"],
-            $data["CLI_VRVDA"]
+            $data["CLI_VRVDA"],
+            $data["MOEDA_SIGLA"],
+            $data["MOEDA_QDEC"]
         );
     }
 
@@ -212,7 +221,7 @@ class ClientDAO
 
             if(checkFloatDecimalPlaces($newTotalSales) > $currency->getDecimalPlaces())
             {
-                throw new Exception("O valor total de vendas de um cliente com a moeda " . $currency->getAbbreviation() . " ser um número com no máximo " . strval($currency->getDecimalPlaces()) . " casas decimais");
+                throw new Exception("O valor total de vendas de um cliente com a moeda " . $currency->getAbbreviation() . " deve ser um número com no máximo " . strval($currency->getDecimalPlaces()) . " casas decimais");
             }
         }
     }

@@ -7,6 +7,8 @@ class Client implements \JsonSerializable
     private ?string $creationDate;
     private ?string $lastSaleDate;
     private ?float $totalSales;
+    private ?string $currencyAbbreviation;
+    private ?int $currencyDecimalPlaces;
 
     public function setCode(?string $code) : void
     {
@@ -66,6 +68,26 @@ class Client implements \JsonSerializable
     public function getTotalSales() : ?float
     {
         return $this->totalSales;
+    }
+
+    public function setCurrencyAbbreviation(?string $currencyAbbreviation) : void
+    {
+        $this->currencyAbbreviation = $currencyAbbreviation;
+    }
+
+    public function getCurrencyAbbreviation() : ?string
+    {
+        return $this->currencyAbbreviation;
+    }
+
+    public function setCurrencyDecimalPlaces(?int $currencyDecimalPlaces) : void
+    {
+        $this->currencyDecimalPlaces = $currencyDecimalPlaces;
+    }
+
+    public function getCurrencyDecimalPlaces() : ?int
+    {
+        return $this->currencyDecimalPlaces;
     }
 
     public function jsonSerialize()
